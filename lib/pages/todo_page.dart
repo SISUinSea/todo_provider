@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_provider/utils/debounce.dart';
 
 import '../models/todo_model.dart';
 import '../providers/providers.dart';
@@ -81,7 +82,8 @@ class _CreateTodoState extends State<CreateTodo> {
 }
 
 class SearchAndFilterTodo extends StatelessWidget {
-  const SearchAndFilterTodo({Key? key}) : super(key: key);
+  SearchAndFilterTodo({Key? key}) : super(key: key);
+  final debounce = Debounce();
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +97,8 @@ class SearchAndFilterTodo extends StatelessWidget {
               prefixIcon: Icon(Icons.search)),
           onChanged: (String? newSearch) {
             if (newSearch != null) {
-              context.read<TodoSearch>().setSearchTerm(newSearch);
+              debounce.run(
+                  () => context.read<TodoSearch>().setSearchTerm(newSearch));
             }
           },
         ),
