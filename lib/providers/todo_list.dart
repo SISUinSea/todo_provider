@@ -39,6 +39,7 @@ class TodoList with ChangeNotifier {
   void addTodo(String newDesc) {
     // _state.todos.add(Todo(desc: newDesc));
     // notifyListeners();
+    print(_state);
     final Todo newTodo = Todo(desc: newDesc);
     final newTodos = [..._state.todos, newTodo];
 

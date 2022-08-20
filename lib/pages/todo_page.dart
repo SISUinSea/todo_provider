@@ -16,6 +16,7 @@ class TodosPage extends StatelessWidget {
               child: Column(
                 children: [
                   TodoHeader(),
+                  CreateTodo(),
                 ],
               )),
         ),
@@ -41,6 +42,36 @@ class TodoHeader extends StatelessWidget {
           style: TextStyle(color: Colors.redAccent, fontSize: 20.0),
         )
       ],
+    );
+  }
+}
+
+class CreateTodo extends StatefulWidget {
+  const CreateTodo({Key? key}) : super(key: key);
+
+  @override
+  State<CreateTodo> createState() => _CreateTodoState();
+}
+
+class _CreateTodoState extends State<CreateTodo> {
+  final _newTodoController = TextEditingController();
+  @override
+  void dispose() {
+    _newTodoController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      decoration: InputDecoration(labelText: 'What to do?'),
+      controller: _newTodoController,
+      onSubmitted: (String? todoDesc) {
+        if (todoDesc != null && todoDesc.trim().isNotEmpty) {
+          context.read<TodoList>().addTodo(todoDesc);
+          _newTodoController.clear();
+        }
+      },
     );
   }
 }
