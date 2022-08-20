@@ -34,7 +34,10 @@ class TodoFilter with ChangeNotifier {
   TodoFilterState get state => _state;
 
   void changeFilter(Filter newFilter) {
-    _state.copyWith(filter: newFilter);
+    // print('new filter is ${newFilter}.\ncurrent filter is ${state}');
+    _state = _state.copyWith(filter: newFilter);
+    print('new filter is ${newFilter}.\ncurrent filter is ${state}');
+
     notifyListeners();
   }
 }
